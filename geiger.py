@@ -18,7 +18,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(15,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 timespan=60
 counter=0
-hist=np.zeros(120)
+hist=np.zeros(128)
 
 nb_mes=0
 nb_coups=0
@@ -30,7 +30,7 @@ def make_font(name, size):
 
 
 fontsize=8
-font = make_font("ProggyTiny.ttf",  8)
+font = make_font("tiny.ttf",  6)
 fontl = make_font("C&C Red Alert [INET].ttf", 24)
 
 def tube_impulse_callback(channel):
@@ -45,9 +45,12 @@ GPIO.add_event_detect(15,GPIO.FALLING,callback=tube_impulse_callback,bouncetime=
 with canvas(device) as draw:
         dtheure=datetime.now().isoformat()
         draw.text((0,0),dtheure[0:10]+' '+dtheure[11:16],fill='white')
-        draw.text((0,10),'    CPM',font=fontl,fill='white')
-
-
+        draw.text((0,10),'...',font=fontl,fill='white')
+	draw.text((68,17),'MAX: 0',fill='white')
+	draw.text((68,9),'AVG: 0',fill='white')
+	draw.text((120,24),'0',font=font,fill='white')
+	draw.text((64,59),'1h',font=font,fill='white')
+        draw.text((4,59),'2h',font=font,fill='white')
 
 max_coup=-1
 try:
@@ -63,12 +66,15 @@ try:
 			cpm=int(counter*60/timespan)
 			dtheure=datetime.now().isoformat()
 			draw.text((0,0),dtheure[0:10]+' '+dtheure[11:16],fill='white')
-			draw.text((0,8),str(cpm)+' CPM',font=fontl,fill='white')
+			draw.text((0,8),str(cpm)+'CPM',font=fontl,fill='white')
 			draw.text((68,9),'AVG: '+str(round(nb_coups/nb_mes,1)),fill='white')
 			draw.text((68,17),'MAX: '+str(max_coup),fill='white')
 			h_max=hist.max()
-			for i in range(120):
-				draw.line((i+1,64,i+1,64-int(round(hist[i]/h_max*32))),fill='white')
+			draw.text((120,24),str(int(h_max)),font=font,fill='white')
+			draw.text((64,59),'1h',font=font,fill='white')
+			draw.text((4,59),'2h',font=font,fill='white')
+			for i in range(128):
+				draw.line((i,58,i,58-int(round(hist[i]/h_max*26))),fill='white')
 		counter=0
 
 except KeyboardInterrupt:
@@ -81,3 +87,4 @@ except:
 
 
 
+draw.text((120,66),str(int(h_max)),font=font,fill='white')
