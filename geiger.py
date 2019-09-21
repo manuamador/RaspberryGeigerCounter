@@ -45,7 +45,8 @@ GPIO.add_event_detect(15,GPIO.FALLING,callback=tube_impulse_callback,bouncetime=
 with canvas(device) as draw:
         dtheure=datetime.now().isoformat()
         draw.text((0,0),dtheure[0:10]+' '+dtheure[11:16],fill='white')
-        draw.text((0,10),'...',font=fontl,fill='white')
+        draw.text((0,8),'---',font=fontl,fill='white')
+	draw.text((28,8),'CPM',font=fontl,fill='white')
 	draw.text((68,17),'MAX: 0',fill='white')
 	draw.text((68,9),'AVG: 0',fill='white')
 	draw.text((120,24),'0',font=font,fill='white')
@@ -66,7 +67,8 @@ try:
 			cpm=int(counter*60/timespan)
 			dtheure=datetime.now().isoformat()
 			draw.text((0,0),dtheure[0:10]+' '+dtheure[11:16],fill='white')
-			draw.text((0,8),str(cpm)+'CPM',font=fontl,fill='white')
+			draw.text((0,8),str(cpm),font=fontl,fill='white')
+			draw.text((28,8),'CPM',font=fontl,fill='white')
 			draw.text((68,9),'AVG: '+str(round(nb_coups/nb_mes,1)),fill='white')
 			draw.text((68,17),'MAX: '+str(max_coup),fill='white')
 			h_max=hist.max()
@@ -83,8 +85,3 @@ except KeyboardInterrupt:
 except:
 	print ('erreur')
 	GPIO.cleanup()
-
-
-
-
-draw.text((120,66),str(int(h_max)),font=font,fill='white')
