@@ -1,5 +1,4 @@
 import time
-import timeit
 from datetime import datetime
 import RPi.GPIO as GPIO
 from PIL import ImageFont
@@ -43,15 +42,15 @@ GPIO.add_event_detect(15,GPIO.FALLING,callback=tube_impulse_callback,bouncetime=
 
 
 with canvas(device) as draw:
-        dtheure=datetime.now().isoformat()
-        draw.text((0,0),dtheure[0:10]+' '+dtheure[11:16],fill='white')
-        draw.text((0,8),'---',font=fontl,fill='white')
+	dtheure=datetime.now().isoformat()
+	draw.text((0,0),dtheure[0:10]+' '+dtheure[11:16],fill='white')
+	draw.text((0,8),'---',font=fontl,fill='white')
 	draw.text((28,8),'CPM',font=fontl,fill='white')
 	draw.text((68,17),'MAX: 0',fill='white')
 	draw.text((68,9),'AVG: 0',fill='white')
 	draw.text((120,24),'0',font=font,fill='white')
 	draw.text((64,59),'1h',font=font,fill='white')
-        draw.text((4,59),'2h',font=font,fill='white')
+	draw.text((4,59),'2h',font=font,fill='white')
 
 max_coup=-1
 try:
