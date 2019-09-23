@@ -1,6 +1,6 @@
 # RaspberryGeigerCounter
 
-A small code to use cheap Geiger counter board (RadiationD CAJOE) with a raspberry.
+A small code to use a cheap Geiger counter board (RadiationD CAJOE) with a raspberry.
 
 First, to use with GPIO ports, you need to change R19 from 47kOhms to 1kOhms.
 
